@@ -63,3 +63,13 @@ void MainWindow::on_deletePoint_clicked()
 {
     _grapher->removeSelectedPoints();
 }
+
+void MainWindow::on_setSource_clicked()
+{
+   _grapher->setSource();
+}
+
+void MainWindow::on_setDest_clicked()
+{
+    _grapher->setDest();
+}

@@ -32,6 +32,10 @@ private slots:
 
     void on_deletePoint_clicked();
 
+    void on_setSource_clicked();
+
+    void on_setDest_clicked();
+
 private:
     Ui::MainWindow *ui;
 

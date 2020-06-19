@@ -28,6 +28,8 @@ public:
     double z							();
     unsigned int id						();
     bool selected						();
+    bool src							();
+    bool dst							();
 
     // return list of edges attached to this point
     QList<GraphPoint*> edges				();
@@ -45,6 +47,8 @@ public:
     void setY							(double y);
     void setZ							(double z);
     void setId							(unsigned int id);
+    void setSrc							(bool src);
+    void setDst							(bool dst);
 
     void toggleSelect					();
     void setSelected					(bool selected);
@@ -56,9 +60,11 @@ private:
     double _x, _y, _z;
     unsigned int _id;
 
-    bool _selected;
+    bool _selected, _src, _dst;
 
     QGraphicsEllipseItem* _ellipse;
+    QColor _color;
+
 
     QList<GraphPoint*> _edges;
 

@@ -16,9 +16,61 @@ Grapher::Grapher(GraphicsView* graphicsView, QObject *parent) : QObject(parent)
     _scene = new QGraphicsScene();
     _graphics->setScene(_scene);
 
+    src = dst = nullptr;
+
     // connect mouse click event
     connect(_graphics, &GraphicsView::mouseClicked, this, &Grapher::handleClick);
     connect(_graphics, &GraphicsView::mouseDoubleClicked, this, &Grapher::handleDoubleClick);
+}
+
+
+
+/**
+ * Set source node based on the selected point
+ * @brief Grapher::setSource
+ */
+void Grapher::setSource()
+{
+    if(_selectedPoints.size() != 1) {
+        qDebug() << "Must select a single point for source";
+        return;
+    }
+
+    // check whether should remove the old src node
+    if(src != nullptr) {
+        src->setSrc(false);
+    }
+
+    src = _selectedPoints.at(0);
+    src->setSrc(true);
+
+    unselectAll();
+}
+
+
+
+
+/**
+ * Set destination node based on the selected point
+ * @brief Grapher::setDest
+ */
+void Grapher::setDest()
+{
+    if(_selectedPoints.size() != 1) {
+        qDebug() << "Must select a single point for source";
+        return;
+    }
+
+    // check whether should remove the old src node
+    if(dst != nullptr) {
+        dst->setSrc(false);
+    }
+
+    dst = _selectedPoints.at(0);
+    dst->setDst(true);
+
+    unselectAll();
+
 }
 
 
@@ -116,6 +168,7 @@ void Grapher::addEdge(double weight)
         if(edge2->sameAs(edge1)) {
             // edge already exists, can return
             qDebug() << "Edge exists";
+            unselectAll();
             return;
         }
     }
@@ -130,6 +183,8 @@ void Grapher::addEdge(double weight)
     for(int i = 0; i < items.size(); i++) {
         _scene->addItem(items.at(i));
     }
+
+    unselectAll();
 }
 
 
@@ -167,6 +222,7 @@ void Grapher::removeEdge()
             _edges.removeAt(i);
             delete e2;
             qDebug() << "Edge removed";
+            unselectAll();
             return;
         }
     }
@@ -216,6 +272,21 @@ void Grapher::handleClick(QPointF)
         }
     }
 }
+
+
+/**
+ * Unselect all currently selected points
+ * @brief Grapher::unselectAll
+ */
+void Grapher::unselectAll()
+{
+    for(int i = 0; i < _selectedPoints.size(); i++) {
+        GraphPoint* p = _selectedPoints.at(i);
+        p->toggleSelect();
+    }
+    _selectedPoints.clear();
+}
+
 
 
 /**

@@ -6,7 +6,7 @@
 GraphPoint::GraphPoint(QObject *parent) : QObject(parent)
 {
     _x = _y = _z = _id = 0;
-    _selected = false;
+    _selected = _src = _dst = false;
     _ellipse = nullptr;
 }
 
@@ -64,7 +64,11 @@ double GraphPoint::y(){return _y;}
 double GraphPoint::z(){return _z;}
 unsigned int GraphPoint::id(){return _id;}
 bool GraphPoint::selected(){return _selected;}
+bool GraphPoint::src(){return _src;}
+bool GraphPoint::dst(){return _dst;}
+
 QList<GraphPoint*> GraphPoint::edges(){return _edges;}
+
 
 
 QList<QGraphicsItem*> GraphPoint::graphicsItems()
@@ -80,6 +84,27 @@ void GraphPoint::setX(double x){_x = x;updateEllipse();}
 void GraphPoint::setY(double y){_y = y;updateEllipse();}
 void GraphPoint::setZ(double z){_z = z;updateEllipse();}
 void GraphPoint::setId(unsigned int id){_id = id;}
+
+void GraphPoint::setSrc(bool src)
+{
+    _src = src;
+    _color = src ? QColor::fromRgb(252, 5, 248) : QColor::fromRgb(0,0,0);
+
+    // can set pen color if not selected
+    if(!_selected) {
+        _ellipse->setBrush(_color);
+    }
+}
+
+void GraphPoint::setDst(bool dst)
+{
+    _dst = dst;
+    _color = dst ? QColor::fromRgb(252,248,5) : QColor::fromRgb(0,0,0);
+
+    if(!_selected) {
+        _ellipse->setBrush(_color);
+    }
+}
 
 
 /**
@@ -145,7 +170,7 @@ void GraphPoint::setSelected(bool selected)
     if(selected) {
         _ellipse->setBrush(QBrush(QColor::fromRgb(0,255,0)));
     } else {
-        _ellipse->setBrush(QBrush(QColor::fromRgb(0,0,0)));
+        _ellipse->setBrush(_color);
     }
 
     _selected= selected;
