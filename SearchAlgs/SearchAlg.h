@@ -36,7 +36,7 @@ public slots:
     void setDst							(GraphPoint* dst);
 
 
-private:
+protected:
     Grapher* _grapher;
 
     GraphPoint* _src;

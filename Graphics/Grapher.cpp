@@ -16,12 +16,17 @@ Grapher::Grapher(GraphicsView* graphicsView, QObject *parent) : QObject(parent)
     _scene = new QGraphicsScene();
     _graphics->setScene(_scene);
 
-    src = dst = nullptr;
+    _src = _dst = nullptr;
 
     // connect mouse click event
     connect(_graphics, &GraphicsView::mouseClicked, this, &Grapher::handleClick);
     connect(_graphics, &GraphicsView::mouseDoubleClicked, this, &Grapher::handleDoubleClick);
 }
+
+
+// getters
+GraphPoint* Grapher::src(){return _src;}
+GraphPoint* Grapher::dst(){return _dst;}
 
 
 
@@ -37,16 +42,16 @@ void Grapher::setSource()
     }
 
     // check whether should remove the old src node
-    if(src != nullptr) {
-        src->setSrc(false);
+    if(_src != nullptr) {
+        _src->setSrc(false);
     }
 
-    src = _selectedPoints.at(0);
-    src->setSrc(true);
+    _src = _selectedPoints.at(0);
+    _src->setSrc(true);
 
     unselectAll();
 
-    emit newSrc(src);
+    emit newSrc(_src);
 }
 
 
@@ -64,16 +69,16 @@ void Grapher::setDest()
     }
 
     // check whether should remove the old src node
-    if(dst != nullptr) {
-        dst->setSrc(false);
+    if(_dst != nullptr) {
+        _dst->setSrc(false);
     }
 
-    dst = _selectedPoints.at(0);
-    dst->setDst(true);
+    _dst = _selectedPoints.at(0);
+    _dst->setDst(true);
 
     unselectAll();
 
-    emit newDst(dst);
+    emit newDst(_dst);
 }
 
 

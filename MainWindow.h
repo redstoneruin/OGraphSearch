@@ -37,6 +37,8 @@ private slots:
 
     void on_setDest_clicked();
 
+    void on_runButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

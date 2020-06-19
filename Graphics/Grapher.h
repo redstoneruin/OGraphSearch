@@ -27,6 +27,8 @@ public:
     void setSource					();
     void setDest					();
 
+    GraphPoint* src						();
+    GraphPoint* dst						();
 
 signals:
     void newSrc						(GraphPoint* src);
@@ -53,8 +55,8 @@ private:
     QList<GraphPoint*> _points, _selectedPoints;
     QList<GraphEdge*> _edges;
 
-    GraphPoint* src;
-    GraphPoint* dst;
+    GraphPoint* _src;
+    GraphPoint* _dst;
 
     unsigned int pointId, edgeId;
 };

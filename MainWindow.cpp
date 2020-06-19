@@ -2,6 +2,7 @@
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "SearchAlgs/BellmanFord.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,13 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // set up grapher to handle graphing of nodes
     _grapher = new Grapher(_graphicsView);
-
-    _searchAlg = new SearchAlg(_grapher);
-
-    // connect for when search is run
-    connect(_grapher, &Grapher::newSrc, _searchAlg, &SearchAlg::setSrc);
-    connect(_grapher, &Grapher::newDst, _searchAlg, &SearchAlg::setDst);
-
+    _searchAlg = nullptr;
 
     _x = _y = _z = _weight = 0;
 
@@ -79,4 +74,19 @@ void MainWindow::on_setSource_clicked()
 void MainWindow::on_setDest_clicked()
 {
     _grapher->setDest();
+}
+
+void MainWindow::on_runButton_clicked()
+{
+
+    _searchAlg = new BellmanFord(_grapher);
+
+    // connect for when search is run
+    connect(_grapher, &Grapher::newSrc, _searchAlg, &SearchAlg::setSrc);
+    connect(_grapher, &Grapher::newDst, _searchAlg, &SearchAlg::setDst);
+
+    _searchAlg->setSrc(_grapher->src());
+    _searchAlg->setDst(_grapher->dst());
+    _searchAlg->run();
+
 }

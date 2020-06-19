@@ -20,6 +20,7 @@ SOURCES += \
     Graphics/GraphPoint.cpp \
     Graphics/Grapher.cpp \
     Graphics/GraphicsView.cpp \
+    SearchAlgs/BellmanFord.cpp \
     SearchAlgs/SearchAlg.cpp \
     main.cpp \
     MainWindow.cpp
@@ -30,6 +31,7 @@ HEADERS += \
     Graphics/Grapher.h \
     Graphics/GraphicsView.h \
     MainWindow.h \
+    SearchAlgs/BellmanFord.h \
     SearchAlgs/SearchAlg.h
 
 FORMS += \
