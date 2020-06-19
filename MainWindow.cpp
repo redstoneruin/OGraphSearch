@@ -17,6 +17,13 @@ MainWindow::MainWindow(QWidget *parent)
     // set up grapher to handle graphing of nodes
     _grapher = new Grapher(_graphicsView);
 
+    _searchAlg = new SearchAlg(_grapher);
+
+    // connect for when search is run
+    connect(_grapher, &Grapher::newSrc, _searchAlg, &SearchAlg::setSrc);
+    connect(_grapher, &Grapher::newDst, _searchAlg, &SearchAlg::setDst);
+
+
     _x = _y = _z = _weight = 0;
 
 }

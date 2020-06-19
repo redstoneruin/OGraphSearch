@@ -5,6 +5,7 @@
 
 #include "Graphics/Grapher.h"
 #include "Graphics/GraphicsView.h"
+#include "SearchAlgs/SearchAlg.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -41,6 +42,8 @@ private:
 
     Grapher* _grapher;
     GraphicsView* _graphicsView;
+    SearchAlg* _searchAlg;
+
 
     double _x, _y, _z, _weight;
     QString _name;

@@ -19,13 +19,18 @@ class Grapher : public QObject
 public:
     explicit Grapher(GraphicsView* graphicsView, QObject *parent = nullptr);
 
+    // get the edge object between these two points, if exists
+    GraphEdge* getEdge				(GraphPoint* p1, GraphPoint* p2);
+
     // set source and destination points for search
     // based on currently selected point
-    void setSource();
-    void setDest();
+    void setSource					();
+    void setDest					();
 
 
 signals:
+    void newSrc						(GraphPoint* src);
+    void newDst						(GraphPoint* dst);
 
 public slots:
     void addPoint					(double x, double y, double z);
@@ -35,6 +40,7 @@ public slots:
     void addEdge					(double weight);
     void removeEdge					();
 
+    // unselect all currently selected points
     void unselectAll				();
 
 private slots:

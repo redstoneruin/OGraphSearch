@@ -16,25 +16,33 @@ public:
 
     QList<QGraphicsItem*> graphicsItems			();
 
+    // getters
     GraphPoint* p1						();
     GraphPoint* p2						();
     unsigned int id						();
     double weight						();
 
+    // setters
     void setWeight						(double weight);
     void setId							(unsigned int id);
+    void setColor						(int r, int g, int b, int a = 255);
+
 
     bool sameAs							(const GraphEdge &edge);
+
 
 private:
     explicit GraphEdge					(QObject *parent = nullptr);
 
+    // store point pointers that make up this edge
     GraphPoint* _p1;
     GraphPoint* _p2;
 
+    // store graphics items to draw arrow
     QGraphicsLineItem* _line;
     QGraphicsLineItem* _arrowLine1;
     QGraphicsLineItem* _arrowLine2;
+    QColor _color;
 
     unsigned int _id;
 

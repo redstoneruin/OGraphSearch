@@ -20,6 +20,7 @@ SOURCES += \
     Graphics/GraphPoint.cpp \
     Graphics/Grapher.cpp \
     Graphics/GraphicsView.cpp \
+    SearchAlgs/SearchAlg.cpp \
     main.cpp \
     MainWindow.cpp
 
@@ -28,7 +29,8 @@ HEADERS += \
     Graphics/GraphPoint.h \
     Graphics/Grapher.h \
     Graphics/GraphicsView.h \
-    MainWindow.h
+    MainWindow.h \
+    SearchAlgs/SearchAlg.h
 
 FORMS += \
     MainWindow.ui

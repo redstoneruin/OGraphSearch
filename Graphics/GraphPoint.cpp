@@ -1,4 +1,6 @@
 #include <QtDebug>
+#include <QtMath>
+
 #include <QBrush>
 
 #include "GraphPoint.h"
@@ -71,6 +73,11 @@ QList<GraphPoint*> GraphPoint::edges(){return _edges;}
 
 
 
+/**
+ * Return list of graphics items that represent this point
+ * @brief GraphPoint::graphicsItems
+ * @return
+ */
 QList<QGraphicsItem*> GraphPoint::graphicsItems()
 {
     QList<QGraphicsItem*> items;
@@ -80,11 +87,20 @@ QList<QGraphicsItem*> GraphPoint::graphicsItems()
     return items;
 }
 
+
+// setters
 void GraphPoint::setX(double x){_x = x;updateEllipse();}
 void GraphPoint::setY(double y){_y = y;updateEllipse();}
 void GraphPoint::setZ(double z){_z = z;updateEllipse();}
 void GraphPoint::setId(unsigned int id){_id = id;}
 
+
+
+/**
+ * Set source point in graph
+ * @brief GraphPoint::setSrc
+ * @param src
+ */
 void GraphPoint::setSrc(bool src)
 {
     _src = src;
@@ -96,6 +112,12 @@ void GraphPoint::setSrc(bool src)
     }
 }
 
+
+/**
+ * Set destination point in graph
+ * @brief GraphPoint::setDst
+ * @param dst
+ */
 void GraphPoint::setDst(bool dst)
 {
     _dst = dst;
@@ -128,6 +150,12 @@ void GraphPoint::addEdge(GraphPoint* p2)
     _edges.push_back(p2);
 }
 
+
+/**
+ * Remove the edge to point p2 if exists
+ * @brief GraphPoint::removeEdge
+ * @param p2
+ */
 void GraphPoint::removeEdge(GraphPoint* p2)
 {
     for(int i = 0; i < _edges.size(); ++i) {
@@ -143,6 +171,10 @@ void GraphPoint::removeEdge(GraphPoint* p2)
 }
 
 
+/**
+ * Update the size and bounds of the ellipse for displaying this point
+ * @brief GraphPoint::updateEllipse
+ */
 void GraphPoint::updateEllipse()
 {
     int width, height;
@@ -159,11 +191,20 @@ void GraphPoint::updateEllipse()
 }
 
 
+/**
+ * Toggle this point's selected status
+ * @brief GraphPoint::toggleSelect
+ */
 void GraphPoint::toggleSelect()
 {
     setSelected(!_selected);
 }
 
+/**
+ * Set this point's selected status
+ * @brief GraphPoint::setSelected
+ * @param selected
+ */
 void GraphPoint::setSelected(bool selected)
 {
     //qDebug() << "setting selected: " << selected;
@@ -177,7 +218,20 @@ void GraphPoint::setSelected(bool selected)
 }
 
 
+/**
+ * Get the straight line distance from this point to the given point
+ * @brief GraphPoint::distanceTo
+ * @param p2
+ * @return
+ */
+double GraphPoint::distanceTo(const GraphPoint &p2)
+{
+    double dx = p2._x - _x;
+    double dy = p2._y - _y;
 
+
+    return qSqrt(dx*dx+dy*dy);
+}
 
 
 

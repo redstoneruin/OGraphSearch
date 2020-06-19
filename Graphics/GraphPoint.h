@@ -31,6 +31,9 @@ public:
     bool src							();
     bool dst							();
 
+
+    double distanceTo					(const GraphPoint &p2);
+
     // return list of edges attached to this point
     QList<GraphPoint*> edges				();
 

@@ -45,6 +45,8 @@ void Grapher::setSource()
     src->setSrc(true);
 
     unselectAll();
+
+    emit newSrc(src);
 }
 
 
@@ -71,6 +73,7 @@ void Grapher::setDest()
 
     unselectAll();
 
+    emit newDst(dst);
 }
 
 
@@ -226,6 +229,33 @@ void Grapher::removeEdge()
             return;
         }
     }
+}
+
+
+
+
+/**
+ * Return the edge between these two points if exists
+ * @post returns pointer of edge if found, nullptr if not
+ * @brief Grapher::getEdge
+ * @param p1 Entry point
+ * @param p2 Exit point
+ * @return
+ */
+GraphEdge* Grapher::getEdge(GraphPoint *p1, GraphPoint *p2)
+{
+    // loop through all edges to find the edge
+    // TODO make faster version, possibly hash table
+    for(int i = 0; i < _edges.size(); i++) {
+        GraphEdge* e1 = _edges.at(i);
+        GraphEdge e2(p1, p2, 0);
+        if(e1->sameAs(e2)) {
+            return e1;
+        }
+    }
+
+    qDebug() << "Could not find edge";
+    return nullptr;
 }
 
 

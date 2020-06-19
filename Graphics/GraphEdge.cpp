@@ -1,5 +1,6 @@
 #include <QtDebug>
 #include <QtMath>
+#include <QPen>
 
 #include "GraphEdge.h"
 
@@ -27,6 +28,7 @@ GraphEdge::GraphEdge(const GraphEdge &edge) : GraphEdge()
     _p1 = edge._p1;
     _p2 = edge._p2;
     _weight = edge._weight;
+    _color = QColor(edge._color);
     updateLine();
 }
 
@@ -43,7 +45,7 @@ GraphEdge::GraphEdge(unsigned int id, GraphPoint* p1, GraphPoint* p2, double wei
     _id = id;
     _p1 = p1;
     _p2 = p2;
-    _weight = weight;
+    _weight = weight == 0 ? p1->distanceTo(*p2) : weight;
     updateLine();
 }
 
@@ -83,6 +85,17 @@ QList<QGraphicsItem*> GraphEdge::graphicsItems()
 void GraphEdge::setWeight(double weight){_weight = weight;};
 void GraphEdge::setId(unsigned int id){_id = id;}
 
+void GraphEdge::setColor(int r, int g, int b, int a)
+{
+    if(_line == nullptr) {
+        qDebug() << "cannot set color, no line";
+        return;
+    }
+    _color = QColor::fromRgb(r, g, b, a);
+    _line->setPen(QPen(_color));
+    _arrowLine1->setPen(QPen(_color));
+    _arrowLine2->setPen(QPen(_color));
+}
 
 
 
@@ -111,6 +124,18 @@ void GraphEdge::updateLine()
         _arrowLine2 = new QGraphicsLineItem(line2);
     } else {
         _line->setLine(_p1->x(), _p1->y(), _p2->x(), _p2->y());
+
+        // make new lines from for the arrow head
+        QLineF line1 = _line->line();
+        line1.setLength(arrowDisplacement);
+
+        QLineF line2(line1);
+
+        line1.setAngle(line1.angle() + 45);
+        line2.setAngle(line2.angle() - 45);
+
+        _arrowLine1->setLine(line1);
+        _arrowLine2->setLine(line2);
     }
 }
 
