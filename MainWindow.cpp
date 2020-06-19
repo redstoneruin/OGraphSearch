@@ -76,9 +76,16 @@ void MainWindow::on_setDest_clicked()
     _grapher->setDest();
 }
 
+/**
+ * Slot called when run button is clicked to run graph algorithm
+ * @brief MainWindow::on_runButton_clicked
+ */
 void MainWindow::on_runButton_clicked()
 {
 
+    //
+    // Determine which algorithm should be used at runtime
+    //
     _searchAlg = new BellmanFord(_grapher);
 
     // connect for when search is run

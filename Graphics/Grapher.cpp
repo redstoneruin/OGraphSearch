@@ -27,6 +27,10 @@ Grapher::Grapher(GraphicsView* graphicsView, QObject *parent) : QObject(parent)
 // getters
 GraphPoint* Grapher::src(){return _src;}
 GraphPoint* Grapher::dst(){return _dst;}
+QList<GraphPoint*> Grapher::points(){return _points;}
+QList<GraphEdge*> Grapher::edges(){return _edges;}
+int Grapher::edgeSize(){return _edges.size();}
+int Grapher::pointSize(){return _points.size();}
 
 
 

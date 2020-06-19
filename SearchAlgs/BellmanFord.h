@@ -9,9 +9,20 @@ class BellmanFord : public SearchAlg
 {
     Q_OBJECT
 public:
-    BellmanFord(Grapher* grapher);
+    BellmanFord											(Grapher* grapher);
 
-    void run() override;
+    void run											() override;
+
+private:
+    // number of points
+    int n;
+    // distances
+    double *d;
+    //parents
+    GraphPoint** p;
+
+    void initializeSingleSource							();
+
 };
 
 #endif // BELLMANFORD_H

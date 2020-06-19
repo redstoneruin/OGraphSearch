@@ -30,6 +30,11 @@ public:
     GraphPoint* src						();
     GraphPoint* dst						();
 
+    int pointSize						();
+    int edgeSize						();
+    QList<GraphPoint*> points			();
+    QList<GraphEdge*> edges				();
+
 signals:
     void newSrc						(GraphPoint* src);
     void newDst						(GraphPoint* dst);
