@@ -20,8 +20,10 @@ private:
     double *d;
     //parents
     GraphPoint** p;
+    QList<GraphPoint*> open;
 
     void initializeSingleSource							();
+    void relax											(GraphPoint* u, GraphPoint* v);
 
 };
 

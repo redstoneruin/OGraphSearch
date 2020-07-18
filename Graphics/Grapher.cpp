@@ -151,6 +151,24 @@ void Grapher::removeSelectedPoints()
 }
 
 
+/**
+ * Get GraphPoint pointer by its id
+ * @brief getPoint
+ * @param id
+ * @return
+ */
+GraphPoint* Grapher::getPoint(unsigned int id)
+{
+    for(int i = 0; i < _points.size(); i++) {
+        if(_points.at(i)->id() == id) {
+            return _points.at(i);
+        }
+    }
+
+    return nullptr;
+}
+
+
 
 /**
  * Add edge to graph using selected points

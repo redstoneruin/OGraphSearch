@@ -21,6 +21,7 @@ SOURCES += \
     Graphics/Grapher.cpp \
     Graphics/GraphicsView.cpp \
     SearchAlgs/BellmanFord.cpp \
+    SearchAlgs/Dijkstra.cpp \
     SearchAlgs/SearchAlg.cpp \
     main.cpp \
     MainWindow.cpp
@@ -32,6 +33,7 @@ HEADERS += \
     Graphics/GraphicsView.h \
     MainWindow.h \
     SearchAlgs/BellmanFord.h \
+    SearchAlgs/Dijkstra.h \
     SearchAlgs/SearchAlg.h
 
 FORMS += \

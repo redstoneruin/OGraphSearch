@@ -20,7 +20,11 @@ public:
     explicit Grapher(GraphicsView* graphicsView, QObject *parent = nullptr);
 
     // get the edge object between these two points, if exists
+    // O(n)
     GraphEdge* getEdge				(GraphPoint* p1, GraphPoint* p2);
+
+    // get point by id O(n)
+    GraphPoint* getPoint			(unsigned int id);
 
     // set source and destination points for search
     // based on currently selected point

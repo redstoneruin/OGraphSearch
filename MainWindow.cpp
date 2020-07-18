@@ -3,6 +3,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "SearchAlgs/BellmanFord.h"
+#include "SearchAlgs/Dijkstra.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -86,7 +87,7 @@ void MainWindow::on_runButton_clicked()
     //
     // Determine which algorithm should be used at runtime
     //
-    _searchAlg = new BellmanFord(_grapher);
+    _searchAlg = new Dijkstra(_grapher);
 
     // connect for when search is run
     connect(_grapher, &Grapher::newSrc, _searchAlg, &SearchAlg::setSrc);

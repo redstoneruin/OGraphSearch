@@ -1,6 +1,6 @@
 #include "SearchAlg.h"
 
-SearchAlg::SearchAlg(Grapher* grapher, QObject *parent) : QObject(parent)
+SearchAlg::SearchAlg(Grapher* grapher) : QThread()
 {
     _grapher = grapher;
     _src = _dst = nullptr;

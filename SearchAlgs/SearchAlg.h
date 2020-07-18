@@ -2,6 +2,7 @@
 #define SEARCHALG_H
 
 #include <QObject>
+#include <QThread>
 
 #include "Graphics/Grapher.h"
 #include "Graphics/GraphEdge.h"
@@ -12,11 +13,11 @@
  * Template class for search algorithms
  * @brief The SearchAlg class
  */
-class SearchAlg : public QObject
+class SearchAlg : public QThread
 {
     Q_OBJECT
 public:
-    explicit SearchAlg					(Grapher* grapher, QObject *parent = nullptr);
+    explicit SearchAlg					(Grapher* grapher);
     explicit SearchAlg					(const SearchAlg &alg);
 
     // getters
