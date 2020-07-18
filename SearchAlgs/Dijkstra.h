@@ -21,6 +21,7 @@ private:
     unsigned int* p;
 
     bool setup						();
+    void tracePath					();
 
 };
 

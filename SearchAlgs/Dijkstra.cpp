@@ -47,6 +47,7 @@ void Dijkstra::run()
 
         if(u == _dst) {
             qDebug() << "Found destination";
+            tracePath();
             return;
         }
 
@@ -58,7 +59,7 @@ void Dijkstra::run()
             GraphPoint* v = neighbors.at(i);
             // get this edge to find weight
             GraphEdge* e = _grapher->getEdge(u, v);
-            e->setColor(0,255,0);
+            //e->setColor(0,255,0);
             qDebug() << "Setting color";
             double weight = e->weight();
 
@@ -68,7 +69,7 @@ void Dijkstra::run()
             // if this is lowest weight, update distance and parent
             if(alt < d[v->id()]) {
                 d[v->id()] = alt;
-                p[v->id()] = v->id();
+                p[v->id()] = u->id();
             }
         }
 
@@ -81,7 +82,11 @@ void Dijkstra::run()
 }
 
 
-
+/**
+ * Perform Dijkstra setup before running algorithm
+ * @brief Dijkstra::setup
+ * @return
+ */
 bool Dijkstra::setup()
 {
     if(d != nullptr) {
@@ -96,6 +101,13 @@ bool Dijkstra::setup()
         qDebug() << "Need destination node to run Dijkstra's";
         return false;
     }
+
+    // reset all edges to black color
+    QList<GraphEdge*> edges = _grapher->edges();
+    for(int i = 0; i < edges.size(); i++) {
+        edges.at(i)->setColor(0,0,0);
+    }
+
 
     QList<GraphPoint*> points = _grapher->points();
 
@@ -115,5 +127,49 @@ bool Dijkstra::setup()
     d[_src->id()] = 0;
 
     return true;
+
+}
+
+
+
+/**
+ * Trace path from dst to src after Dijkstra's has completed successfully
+ * @brief tracePath
+ */
+void Dijkstra::tracePath()
+{
+    QList<GraphPoint*> path;
+
+    unsigned int u = _dst->id();
+
+    // get previous point
+    unsigned int prev = p[u];
+
+    unsigned int inf = std::numeric_limits<unsigned int>::max();
+
+    // check if previous point is defined
+
+    if(prev != inf) {
+        while(u != inf) {
+            qDebug() << "Tracing back: " << u;
+            path.push_front(_grapher->getPoint(u));
+            u = p[u];
+        }
+    } else if(_grapher->getPoint(u) == _src) {
+        qDebug() << "Src is same as dest";
+        return;
+    } else {
+        qDebug() << "Path could not be traced";
+        return;
+    }
+
+    //
+    // Loop through each edge in the final path
+    // set color of edges to show final path
+    //
+    for(int i = 0; i < path.size() - 1; i++) {
+        GraphEdge* e = _grapher->getEdge(path.at(i), path.at(i+1));
+        e->setColor(0,255,0);
+    }
 
 }
